@@ -9,7 +9,7 @@ services:
   - docker
 
 before_install:
-  - docker login -u ${gitlab-user} -p ${gitlab-pass} registry.gitlab.com
+  - docker login -u $GITLAB_USER -p $GITLAB_PASS registry.gitlab.com
   - docker pull ${IMAGE}
   - docker run ${IMAGE} bash -c "classic_make_nesc Makefile clean"
   - docker run ${IMAGE} bash -c "classic_make_nesc Makefile"
