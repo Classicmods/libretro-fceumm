@@ -3,13 +3,16 @@ sudo: required
 language: minimal
 
 env:
-  - IMAGE=registry.gitlab.com/bleemsync-dev/docker-autodevops-buildenvs/mmc-crosscompiler-docker-image:latest_internal
-  - TARGETBUILD=fceumm_libretro
+  global:
+    - IMAGE=registry.gitlab.com/bleemsync-dev/docker-autodevops-buildenvs/mmc-crosscompiler-docker-image:latest_internal
+    - TARGETBUILD=fceumm_libretro
+    - REPO_URL=https://github.com/${TRAVIS_REPO_SLUG}
 
 services:
   - docker
 
-before_install:
+before_script:
+  - echo ${REPO_URL}
   - docker login -u ${GITLAB_USER} -p ${GITLAB_PASS} registry.gitlab.com
   - docker pull ${IMAGE}
   - docker run -it -d --name crosscomp ${IMAGE} bash
